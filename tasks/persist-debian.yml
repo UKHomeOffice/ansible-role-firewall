@@ -11,3 +11,4 @@
     port: ssh
     proto: tcp
     state: enabled
+  tags: usb

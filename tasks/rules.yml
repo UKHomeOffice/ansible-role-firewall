@@ -1,4 +1,20 @@
 ---
+- name: Install iptables
+  apt:
+    name: "{{ item }}"
+    state: latest
+  with_items:
+    - iproute2
+    - iptables
+    - iptables-converter
+    - iptables-converter-doc
+    - iptables-dev
+    - iptables-nftables-compat
+    - iptables-optimizer
+    - iptables-optimizer-doc
+    - iptables-persistent
+    - ufw
+
 - name: Generate v4 rules
   template: src=generated.v4.j2 dest=/etc/iptables.v4.generated owner=root group=root mode=755
   register: v4_script
@@ -11,5 +27,5 @@
   tags: usb
 
 - name: Save v4 rules
-  shell: iptables-save -c > {{ firewall_v4_saved_rules_path }}
+  shell: /sbin/iptables-save -c > {{ firewall_v4_saved_rules_path }}
   when: v4_script|changed

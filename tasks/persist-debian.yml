@@ -7,8 +7,7 @@
 
 - name: ensure ufw is installed
   apt:
-    name: ufw
-    state: latest
+    name: ufw=0.35-0ubuntu2
 
 - name: Drop incoming connections
   ufw:

@@ -13,6 +13,8 @@ firewall_v4_default_rules:
     - -A INPUT -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
   200 allow ssh:
     - -A INPUT -p tcp --dport ssh -j ACCEPT
+    - -A INPUT -p tcp --dport ssh -m state --state NEW -m recent --update --seconds 120 --hitcount 8 --rttl --name SSH -j DROP
+    - -A INPUT -p tcp --dport ssh -m state --state NEW -j ACCEPT
   999 drop everything:
     - -P INPUT DROP
 
